@@ -16,6 +16,10 @@ $(function() {
   var $loginPage = $('.login.page'); // The login page
   var $chatPage = $('.chat.page'); // The chatroom page
 
+  var $calmButton = $('.calmButton');
+  var $normalButton = $('.normalButton');
+  var $angryButton = $('.angryButton');
+
   // Prompt for setting a username
   var username;
   var connected = false;
@@ -212,6 +216,33 @@ $(function() {
   });
 
   // Click events
+
+  $calmButton.click(function () {
+    console.log('calm button');
+    var a = {
+      info: "CALM",
+      color: "#0000FF"
+    }
+    socket.emit('new message', a);
+  });
+
+  $normalButton.click(function () {
+    console.log('normal button');
+    var a = {
+      info: "NORMAL",
+      color: "#00FF00"
+    }
+    socket.emit('new message', a);
+  });
+
+  $angryButton.click(function () {
+    console.log('angry button');
+    var a = {
+      info: "ANGRY",
+      color: "#FF0000"
+    }
+    socket.emit('new message', a);
+  });
 
   // Focus input when clicking anywhere on login page
   $loginPage.click(function () {

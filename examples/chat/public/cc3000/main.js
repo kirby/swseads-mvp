@@ -26,6 +26,7 @@ var canvasWidth, canvasHeight;
 var recIndex = 0;
 
 var socket = io();
+var sentimentColor = '#00FF00';
 
 /* TODO:
 
@@ -103,7 +104,8 @@ function updateAnalysers(time) {
         analyserNode.getByteFrequencyData(freqByteData);
 
         analyserContext.clearRect(0, 0, canvasWidth, canvasHeight);
-        analyserContext.fillStyle = '#F6D565';
+        // analyserContext.fillStyle = '#F6D565';
+        analyserContext.fillStyle = sentimentColor;
         analyserContext.lineCap = 'round';
         var multiplier = analyserNode.frequencyBinCount / numBars;
 
@@ -116,7 +118,7 @@ function updateAnalysers(time) {
                 magnitude += freqByteData[offset + j];
             magnitude = magnitude / multiplier;
             var magnitude2 = freqByteData[i * multiplier];
-            analyserContext.fillStyle = "hsl( " + Math.round((i*360)/numBars) + ", 100%, 50%)";
+            // analyserContext.fillStyle = "hsl( " + Math.round((i*360)/numBars) + ", 100%, 50%)";
             analyserContext.fillRect(i * SPACING, canvasHeight, BAR_WIDTH, -magnitude);
         }
     }
@@ -188,11 +190,15 @@ function initAudio() {
 // window.addEventListener('load', initAudio );
 
 window.onload = function(){
+  // Join the conversation with our fallback admin tool
   socket.emit('add user', 'call-center-3000');
 
+  // update text and change the equializer color
   socket.on('new message', function (data) {
-    console.log(data);
-    $( "#result" ).html(data.message);
+    console.log(data.message);
+    $( "#result" ).html(data.message.info);
+    sentimentColor = data.message.color;
   });
+
   initAudio();
 }
