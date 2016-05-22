@@ -16,14 +16,14 @@ $(function() {
   var $loginPage = $('.login.page'); // The login page
   var $chatPage = $('.chat.page'); // The chatroom page
 
-  var $calmButton = $('.calmButton');
-  var $normalButton = $('.normalButton');
-  var $angryButton = $('.angryButton');
+  var $calmButton = $('#calmButton');
+  var $normalButton = $('#normalButton');
+  var $angryButton = $('#angryButton');
 
   var SENTIMENT = [
-    { info: "CALM", color: "#0000FF", img: "" },
-    { info: "NORMAL", color: "#00FF00", img: "" },
-    { info: "ANGRY", color: "#FF0000", img: "" }
+    { info: "CALM", color: "#0000FF", zmdi: "zmdi zmdi-mood mdc-text-blue" },
+    { info: "NORMAL", color: "#00FF00", zmdi: "zmdi zmdi-mood mdc-text-green" },
+    { info: "ANGRY", color: "#FF0000", zmdi: "zmdi zmdi-mood-bad mdc-text-red" }
   ];
 
   // Prompt for setting a username

@@ -197,7 +197,11 @@ window.onload = function(){
   // update text and change the equializer color
   socket.on('new message', function (data) {
     console.log(data.message);
-    $( "#result" ).html(data.message.info);
+    $( "#resultZmdi" ).remove();
+    var zmdi = $("<i id='resultZmdi'></i>").addClass(data.message.zmdi);
+    $( "#result" ).append(zmdi);
+    $( "#result" ).html(" " + data.message.info + " ");
+    $( "#result" ).append(zmdi);
     sentimentColor = data.message.color;
   });
 
