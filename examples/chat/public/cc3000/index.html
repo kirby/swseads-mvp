@@ -1,86 +1,119 @@
 <!DOCTYPE html>
 <html><head>
-	<meta http-equiv="content-type" content="text/html; charset=windows-1252">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-	<link rel="stylesheet" href="material-design-color-palette.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="material-design-color-palette.min.css">
 
-	<title>Call Center 3000</title>
+  <title>Call Center 3000</title>
 
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" href="semantic/dist/semantic.min.css">
+  <link rel="stylesheet" href="css/main.css">
 
-	<script src="audiodisplay.js"></script>
-	<script src="recorder.js"></script>
-	<script src="main.js"></script>
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
-	<style>
-	html { overflow: hidden; }
-	body {
-		font: 14pt Arial, sans-serif;
-		background: white;
-		/*display: flex;*/
-		/*flex-direction: column;*/
-		height: 100vh;
-		width: 100%;
-		margin: 0 0;
-	}
-	canvas {
-		display: inline-block;
-		background: #202020;
-		width: 100%;
-		height: 45%;
-		box-shadow: 0px 0px 10px blue;
-	}
-	#controls {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-around;
-		height: 20%;
-		width: 100%;
-	}
-	#record { height: 15vh; }
-	#record.recording {
-		background: red;
-		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
-		background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
-		background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
-	}
-	#save, #save img { height: 10vh; }
-	#save { opacity: 0.25;}
-	#save[download] { opacity: 1;}
-	#viz {
-		height: 100%;
-		width: 100%;
-		/*display: flex;ß
-		flex-direction: column;*/
-		justify-content: space-around;
-		align-items: center;
-	}
-	/*@media (orientation: landscape) {
-		body { flex-direction: row;}
-		#controls { flex-direction: column; height: 100%; width: 10%;}
-		#viz { height: 100%; width: 90%;}
-	}*/
-
-	</style>
+  <style>
+    canvas {
+      display: inline-block;
+      background: #202020;
+      width: 100%;
+      height: 45%;
+      box-shadow: 0px 0px 10px blue;
+    }
+    #controls {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      height: 20%;
+      width: 100%;
+    }
+    #record { height: 15vh; }
+    #record.recording {
+      background: red;
+      background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+      background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+      background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+    }
+    #save, #save img { height: 10vh; }
+    #save { opacity: 0.25;}
+    #save[download] { opacity: 1;}
+    #viz {
+      height: 100%;
+      width: 100%;
+      /*display: flex;ß
+      flex-direction: column;*/
+      justify-content: space-around;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
-	<div id="header">
-		<h1 align="center">Call Center 3000</h1>
-		<h3 align="center" id="result"><i id="resultZmdi" class="zmdi zmdi-settings zmdi-hc-spin"></i> Waiting For Result...</h3>
-	</div>
+  <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 
-	<div id="viz">
-		<canvas id="analyser" width="1024" height="500"></canvas>
-		<!-- <canvas id="wavedisplay" width="1024" height="500"></canvas> -->
-	</div>
+  <div class="ui fixed inverted menu">
+    <div class="ui fluid container">
+      <a href="#" class="header item">
+        <img class="logo" src="img/tile.png">
+        Call Center 3000
+      </a>
+      <a href="#" class="item">Home</a>
+      <div class="ui simple dropdown item">
+        Dropdown <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="#">Link Item</a>
+          <a class="item" href="#">Link Item</a>
+          <div class="divider"></div>
+          <div class="header">Header Item</div>
+          <div class="item">
+            <i class="dropdown icon"></i>
+            Sub Menu
+            <div class="menu">
+              <a class="item" href="#">Link Item</a>
+              <a class="item" href="#">Link Item</a>
+            </div>
+          </div>
+          <a class="item" href="#">Link Item</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<!-- <div id="controls">
-		<img id="record" src="mic128.png" onclick="toggleRecording(this);">
-		<a id="save" href="#"><img src="save.svg"></a>
-	</div> -->
+  <div class="ui main padded grid">
+    <div class="four wide column">
+      <div class="ui vertical fluid tabular menu">
+        <a class="item">
+          Dashboard
+        </a>
+        <a class="item">
+          Call History
+        </a>
+        <a class="active item">
+          Active Call
+        </a>
+        <a class="item">
+          Help
+        </a>
+      </div>
+    </div>
+    <div class="twelve wide stretched column">
+      <h3 align="center" id="result"><i id="resultZmdi" class="zmdi zmdi-settings zmdi-hc-spin"></i> Waiting For Result...</h3>
+      <div id="viz">
+        <canvas id="analyser" width="1024" height="500"></canvas>
+        <!-- <canvas id="wavedisplay" width="1024" height="500"></canvas> -->
+      </div>
+    </div>
+  </div>
 
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script src="audiodisplay.js"></script>
+  <script src="recorder.js"></script>
+  <script src="main.js"></script>
 </body></html>
