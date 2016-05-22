@@ -20,6 +20,12 @@ $(function() {
   var $normalButton = $('.normalButton');
   var $angryButton = $('.angryButton');
 
+  var SENTIMENT = [
+    { info: "CALM", color: "#0000FF", img: "" },
+    { info: "NORMAL", color: "#00FF00", img: "" },
+    { info: "ANGRY", color: "#FF0000", img: "" }
+  ];
+
   // Prompt for setting a username
   var username;
   var connected = false;
@@ -219,29 +225,17 @@ $(function() {
 
   $calmButton.click(function () {
     console.log('calm button');
-    var a = {
-      info: "CALM",
-      color: "#0000FF"
-    }
-    socket.emit('new message', a);
+    socket.emit('new message', SENTIMENT[0]);
   });
 
   $normalButton.click(function () {
     console.log('normal button');
-    var a = {
-      info: "NORMAL",
-      color: "#00FF00"
-    }
-    socket.emit('new message', a);
+    socket.emit('new message', SENTIMENT[1]);
   });
 
   $angryButton.click(function () {
     console.log('angry button');
-    var a = {
-      info: "ANGRY",
-      color: "#FF0000"
-    }
-    socket.emit('new message', a);
+    socket.emit('new message', SENTIMENT[2]);
   });
 
   // Focus input when clicking anywhere on login page

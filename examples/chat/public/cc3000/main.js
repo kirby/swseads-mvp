@@ -96,18 +96,19 @@ function updateAnalysers(time) {
 
     // analyzer draw code here
     {
-        var SPACING = 3;
-        var BAR_WIDTH = 1;
+        var SPACING = 10;    // 3
+        var BAR_WIDTH = 8;  // 1
         var numBars = Math.round(canvasWidth / SPACING);
         var freqByteData = new Uint8Array(analyserNode.frequencyBinCount);
 
         analyserNode.getByteFrequencyData(freqByteData);
 
         analyserContext.clearRect(0, 0, canvasWidth, canvasHeight);
-        // analyserContext.fillStyle = '#F6D565';
-        analyserContext.fillStyle = sentimentColor;
+        analyserContext.fillStyle = sentimentColor; // '#F6D565';
         analyserContext.lineCap = 'round';
-        var multiplier = analyserNode.frequencyBinCount / numBars;
+
+        // var multiplier = analyserNode.frequencyBinCount / numBars;
+        var multiplier = analyserNode.frequencyBinCount / numBars / 3;
 
         // Draw rectangle for each frequency bin.
         for (var i = 0; i < numBars; ++i) {
