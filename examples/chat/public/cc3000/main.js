@@ -26,7 +26,7 @@ var canvasWidth, canvasHeight;
 var recIndex = 0;
 
 var socket = io();
-var sentimentColor = '#00FF00';
+var sentimentColor = '#0000FF';
 
 /* TODO:
 

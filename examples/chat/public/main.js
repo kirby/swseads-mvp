@@ -21,8 +21,8 @@ $(function() {
   var $angryButton = $('#angryButton');
 
   var SENTIMENT = [
-    { info: "CALM", color: "#0000FF", zmdi: "zmdi zmdi-mood mdc-text-blue" },
-    { info: "NORMAL", color: "#00FF00", zmdi: "zmdi zmdi-mood mdc-text-green" },
+    { info: "CALM", color: "#00FF00", zmdi: "zmdi zmdi-mood mdc-text-green" },
+    { info: "NEUTRAL", color: "#0000FF", zmdi: "zmdi zmdi-mood mdc-text-blue" },
     { info: "ANGRY", color: "#FF0000", zmdi: "zmdi zmdi-mood-bad mdc-text-red" }
   ];
 
